@@ -48,7 +48,6 @@ targets = [torch.randn(batch_size, out_size).to(device) for _ in range(num_batch
 loss_fn = torch.nn.MSELoss().cuda()
 
 net = make_model(in_size, out_size, num_layers)
-net.to(device)
 opt = torch.optim.SGD(net.parameters(), lr=0.001)
 
 start_timer()
@@ -77,26 +76,21 @@ start_timer()
 for epoch in range(epochs):
     for input, target in zip(data, targets):
         # Step 2: fp32 input이 fp16 모델 복사본으로 들어가 fp32 loss가 나옴
-        opt.zero_grad()
-
-        with torch.cuda.amp.autocast(enabled=use_amp):
+        with torch.autocast(device_type=device, dtype=torch.float16):
             output = net(input)
             loss = loss_fn(output, target)
 
         # fp32 loss scaling
-        scaled_loss = scaler.scale(loss)
-
-        # Step 3: Backprop 하여 fp16 gradient가 나옴
-        scaled_loss.backward()  # net_fp16 parameter 들에 fp16 gradient 탄생
-
-        # Step 4: fp16 gradient를 copy해서 fp32 gradient로 만들고 remove scale + gradient clipping
+        # Step 3: Backprop 하여 생긴 gradient에 remove scale + gradient clipping
+        scaler.scale(loss).backward()
         scaler.unscale_(opt)
         # gradient clipping
         torch.nn.utils.clip_grad_norm_(net.parameters(), max_norm=0.1)
 
-        # Step 5: 최종 gradient를 처음 fp32 master weight에 적용 + update
+        # Step 4: 최종 gradient를 처음 fp32 master weight에 적용 + update
         scaler.step(opt)
         scaler.update()
+        opt.zero_grad(set_to_none=True)
 
         memory_usage.append(torch.cuda.memory_allocated())
 
