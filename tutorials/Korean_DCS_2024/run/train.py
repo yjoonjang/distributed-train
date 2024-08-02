@@ -28,7 +28,7 @@ g.add_argument("--deepspeed", type=str, default=None, help="deepspeed config")
 def main(args):
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id ,
-        torch_dtype=torch.float16,
+        # torch_dtype=torch.float16,
         # device_map="auto",
     )
     if args.tokenizer == None:
@@ -48,11 +48,10 @@ def main(args):
         "labels": valid_dataset.label,
     })
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
-    # ds_config_file= "../ds_config/stage2_fp16.json"
 
     training_args = SFTConfig(
         output_dir=args.save_dir,
-        overwrite_output_dir=True,
+        overwrite_output_dir=False,
         do_train=True,
         do_eval=True,
         eval_strategy="epoch",
@@ -85,6 +84,7 @@ def main(args):
         eval_dataset=valid_dataset,
         data_collator=data_collator,
         args=training_args,
+
     )
 
     trainer.train()
