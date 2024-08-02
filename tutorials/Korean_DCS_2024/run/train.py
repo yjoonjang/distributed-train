@@ -51,7 +51,7 @@ def main(args):
 
     training_args = SFTConfig(
         output_dir=args.save_dir,
-        overwrite_output_dir=False,
+        overwrite_output_dir=True,
         do_train=True,
         do_eval=True,
         eval_strategy="epoch",
