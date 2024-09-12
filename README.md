@@ -16,6 +16,9 @@
 - `3_mixed_precision_tutorial.py`: **Mixed Precision Training** 기법을 사용하여 학습 속도를 높이고 메모리 사용량을 줄이는 방법을 실습합니다.
 
 ## 4. Deepspeed (ZeRO)
+#### 관련 블로그: [ZeRO-DP](https://medium.com/@yjoonjang/%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC-4-zero-dp-%EC%99%84%EC%A0%84-%EC%9D%B4%ED%95%B4-feat-deepspeed-87b9c98a4d8b)
+- `4_zero_dp_tutorial.py`: **ZeRO-DP** 기법을 활용하여 메모리 최적화된 분산 처리 방법을 실습합니다.
+#### 말평 실습 with deepspeed
 - teddysum에서 주최하는 [일상 대화 요약](https://kli.korean.go.kr/benchmark/taskOrdtm/taskList.do?taskOrdtmId=146&clCd=END_TASK&subMenuId=sub01)의 베이스라인 모델인 [llama-3-Korean-Bllossom-8B](https://github.com/teddysum/Korean_DCS_2024)에 **Deepspeed**를 적용하여 모델을 fine-tuning 합니다.
 - `bash scripts/finetune.sh`명령어를 통해 Deepspeed를 활용한 분산 학습을 실습합니다.
 - 이 단계를 통해 Deepspeed의 ZeRO 최적화 기법을 활용한 대규모 모델 학습의 성능 향상을 직접 경험할 수 있습니다.
