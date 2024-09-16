@@ -9,7 +9,7 @@
 
 ## 2. 모델 분산 처리 (PP, TP, MP)
 #### 관련 블로그: [Pipeline Parallelism(PP)와 Tensor Parallelism(TP)](https://medium.com/@yjoonjang/%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC-3-pipeline-parallelism%EA%B3%BC-tensor-parallelism%EC%97%90-%EA%B4%80%ED%95%98%EC%97%AC-7b4420fe0281)
-- 추후 코드 추가 예정입니다.
+- `4_mp_with_accelerate_tutorial.ipynb`: **Accelerate 라이브러리의 MP**을 사용한 분산 학습 실습.
 
 ## 3. Mixed Precision Training
 #### 관련 블로그: [Mixed Precision Training](https://medium.com/@yjoonjang/mixed-precision-training%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90-mp-amp-torch-cuda-amp-15c99488ed34)
@@ -17,7 +17,7 @@
 
 ## 4. Deepspeed (ZeRO)
 #### 관련 블로그: [ZeRO-DP](https://medium.com/@yjoonjang/%EB%B6%84%EC%82%B0-%EC%B2%98%EB%A6%AC-4-zero-dp-%EC%99%84%EC%A0%84-%EC%9D%B4%ED%95%B4-feat-deepspeed-87b9c98a4d8b)
-- `4_zero_dp_tutorial.py`: **ZeRO-DP** 기법을 활용하여 메모리 최적화된 분산 처리 방법을 실습합니다.
+- `5_zero_dp_tutorial.py`: **ZeRO-DP** 기법을 활용하여 메모리 최적화된 분산 처리 방법을 실습합니다.
 #### 말평 실습 with deepspeed
 - teddysum에서 주최하는 [일상 대화 요약](https://kli.korean.go.kr/benchmark/taskOrdtm/taskList.do?taskOrdtmId=146&clCd=END_TASK&subMenuId=sub01)의 베이스라인 모델인 [llama-3-Korean-Bllossom-8B](https://github.com/teddysum/Korean_DCS_2024)에 **Deepspeed**를 적용하여 모델을 fine-tuning 합니다.
 - `bash scripts/finetune.sh`명령어를 통해 Deepspeed를 활용한 분산 학습을 실습합니다.
